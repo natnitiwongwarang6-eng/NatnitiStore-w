@@ -1,0 +1,2210 @@
+<!DOCTYPE html>
+<html lang="lo">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Natniti Store</title>
+    <link rel="icon" type="image/png" href="assets/logo.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    <style>
+        html, body {
+            box-sizing: border-box;
+            height: 100%;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+        
+        * {
+            font-family: 'Noto Sans Lao', 'Inter', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #dc2626 0%, #991b1b 50%, #7f1d1d 100%);
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(220, 38, 38, 0.15);
+        }
+        
+        .modal {
+            backdrop-filter: blur(15px);
+        }
+        
+        .package-item {
+            transition: all 0.2s ease;
+            border: 2px solid transparent;
+        }
+        
+        .package-item:hover {
+            background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+            border-color: #dc2626;
+            transform: translateY(-2px);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #b91c1c 0%, #991b1b 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(220, 38, 38, 0.3);
+        }
+        
+        .price-card {
+            background: linear-gradient(135deg, #ffffff 0%, #fef7f7 100%);
+            border: 1px solid #fecaca;
+        }
+        
+        .floating-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .text-shadow {
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-red-50 to-rose-100">
+    <!-- Header -->
+    <header class="gradient-bg text-white py-12 relative overflow-hidden">
+        <div class="absolute inset-0 bg-black opacity-10"></div>
+        <div class="container mx-auto px-4 text-center relative z-10">
+            <h1 class="text-5xl font-bold mb-4 text-shadow floating-animation">Natniti Store</h1>
+            <p class="text-xl opacity-95 font-light">ເພີ່ມຍອດໃຈ ແລະ ວິວໃຫ້ວີດີໂອຂອງທ່ານ ໃນລາຄາທີ່ສຸດຖືກ</p>
+            <div class="mt-8 flex justify-center space-x-4">
+                <div class="bg-white bg-opacity-20 px-6 py-3 rounded-full">
+                    <span class="text-sm font-medium">✨ ບໍລິການໄວ</span>
+                </div>
+                <div class="bg-white bg-opacity-20 px-6 py-3 rounded-full">
+                    <span class="text-sm font-medium">🔒 ຂື້ນແທ້ 100%</span>
+                </div>
+                <div class="bg-white bg-opacity-20 px-6 py-3 rounded-full">
+                    <span class="text-sm font-medium">💎 ຄຸນນະພາບສູງ</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-12">
+        <!-- Product Cards Section -->
+        <section class="mb-16">
+            <h2 class="text-4xl font-bold text-center mb-6  pb-2 text-gray-800">ເລືອກແພັກເກັດ/ສິນຄ້າ</h2> 
+            <h4 class="text-1xl font-bold text-center mb-2 text-gray-800">* ຫມາຍເຫດໃນເວັບນີ້ຈະມີແຕ່ປໍ້າໃຈຕິກຕັອກເທົ່ານັ້ນ ຖ້າທ່ານສົນໃຈລາຍການອື່ນສາມາດຕິດຕໍ່ສອບຖາມໄດ້ທີ່ ເຟສບຸກ ຫລື ວັອສແອັບ</h4>
+            <h4 class="text-1xl font-bold text-center pt-1 mb-0 text-red-800">
+         ຕິດຕໍ່ພວກເຮົາ
+    </h4>
+
+    <div class="text-center space-x-1 mt-0 pb-2 mb-2">
+     <a href="https://wa.me/8562097817095" 
+         target="_blank" 
+         class="text-green-600 text-sm underline inline-flex items-center space-x-1">
+                 <img src="assets/whatapp.png" 
+                  alt="WhatsApp" class="w-5 h-5">
+                  <span>+856 20 9781 7095</span>
+              </a>
+
+            <a href="https://www.facebook.com/share/1GsPgWWvP7/?mibextid=wwXIfr" 
+             target="_blank" 
+             class="text-blue-600 text-sm underline inline-flex items-center space-x-1">
+                 <img src="assets/Facebook.png" 
+                     alt="Facebook" class="w-5 h-5">
+                     <span>Natniti Store : ຮັບປໍ້າຕ່າງໆ</span>
+                </a>
+            </div>
+
+            <div class="space-y-6" id="productCards">
+                
+                <!-- Row 1 -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Product Card 1 -->
+                    <div class="price-card rounded-xl shadow-lg p-6 card-hover">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">100ໃຈ ແຖມ 1000ວິວ</h3>
+                        <p class="text-gray-600 mb-4 text-sm">🟩 ໃຊ້ພຽງແຕ່ລິ້ງຄີບບໍ່ຕ້ອງໃສ່ລະຫັດຜ່ານ ງານໄວຂື້ນພາຍໃນ 0-24 ຊົ່ວໂມງ</p>
+                        <div class="text-3xl font-bold text-red-600 mb-4">5,000 ກີບ</div>
+                        <button class="w-full btn-primary text-white py-3 px-6 rounded-xl font-semibold order-btn" 
+                                data-package="100ໃຈ ແຖມ 1000ວິວ" 
+                                data-price="5000">
+                            ສັ່ງຊື້ດຽວນີ້
+                        </button>
+                    </div>
+
+                    <!-- Product Card 2 -->
+                    <div class="price-card rounded-xl shadow-lg p-6 card-hover">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">200ໃຈ ແຖມ 2000ວິວ</h3>
+                        <p class="text-gray-600 mb-4 text-sm">🟩 ໃຊ້ພຽງແຕ່ລິ້ງຄີບບໍ່ຕ້ອງໃສ່ລະຫັດຜ່ານ ງານໄວຂື້ນພາຍໃນ 0-24 ຊົ່ວໂມງ</p>
+                        <div class="text-3xl font-bold text-red-600 mb-4">9,000 ກີບ</div>
+                        <button class="w-full btn-primary text-white py-3 px-6 rounded-xl font-semibold order-btn" 
+                                data-package="200ໃຈ ແຖມ 2000ວິວ" 
+                                data-price="9000">
+                            ສັ່ງຊື້ດຽວນີ້
+                        </button>
+                    </div>
+
+                    <!-- Product Card 3 -->
+                    <div class="price-card rounded-xl shadow-lg p-6 card-hover relative">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">300ໃຈ ແຖມ 3000ວິວ</h3>
+                        <p class="text-gray-600 mb-4 text-sm">🟩 ໃຊ້ພຽງແຕ່ລິ້ງຄີບບໍ່ຕ້ອງໃສ່ລະຫັດຜ່ານ ງານໄວຂື້ນພາຍໃນ 0-24 ຊົ່ວໂມງ</p>
+                        <div class="text-3xl font-bold text-red-600 mb-4">12,000 ກີບ</div>
+                        <button class="w-full btn-primary text-white py-3 px-6 rounded-xl font-semibold order-btn" 
+                                data-package="300ໃຈ ແຖມ 3000ວິວ" 
+                                data-price="12000">
+                            ສັ່ງຊື້ດຽວນີ້
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Row 2 -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Product Card 4 -->
+                    <div class="price-card rounded-xl shadow-lg p-6 card-hover">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">400ໃຈ ແຖມ 4000ວິວ</h3>
+                        <p class="text-gray-600 mb-4 text-sm">🟩 ໃຊ້ພຽງແຕ່ລິ້ງຄີບບໍ່ຕ້ອງໃສ່ລະຫັດຜ່ານ ງານໄວຂື້ນພາຍໃນ 0-24 ຊົ່ວໂມງ</p>
+                        <div class="text-3xl font-bold text-red-600 mb-4">15,000 ກີບ</div>
+                        <button class="w-full btn-primary text-white py-3 px-6 rounded-xl font-semibold order-btn" 
+                                data-package="400ໃຈ ແຖມ 4000ວິວ" 
+                                data-price="15000">
+                            ສັ່ງຊື້ດຽວນີ້
+                        </button>
+                    </div>
+
+                    <!-- Product Card 5 -->
+                    <div class="price-card rounded-xl shadow-lg p-6 card-hover">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">500ໃຈ ແຖມ 5000ວິວ</h3>
+                        <p class="text-gray-600 mb-4 text-sm">🟩 ໃຊ້ພຽງແຕ່ລິ້ງຄີບບໍ່ຕ້ອງໃສ່ລະຫັດຜ່ານ ງານໄວຂື້ນພາຍໃນ 0-24 ຊົ່ວໂມງ</p>
+                        <div class="text-3xl font-bold text-red-600 mb-4">20,000 ກີບ</div>
+                        <button class="w-full btn-primary text-white py-3 px-6 rounded-xl font-semibold order-btn" 
+                                data-package="500ໃຈ ແຖມ 5000ວິວ" 
+                                data-price="20000">
+                            ສັ່ງຊື້ດຽວນີ້
+                        </button>
+                    </div>
+
+                    <!-- Product Card 6 -->
+                    <div class="price-card rounded-xl shadow-lg p-6 card-hover">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">1000ໃຈ ແຖມ 10,000ວິວ</h3>
+                        <p class="text-gray-600 mb-4 text-sm">🟩 ໃຊ້ພຽງແຕ່ລິ້ງຄີບບໍ່ຕ້ອງໃສ່ລະຫັດຜ່ານ ງານໄວຂື້ນພາຍໃນ 0-24 ຊົ່ວໂມງ</p>
+                        <div class="text-3xl font-bold text-red-600 mb-4">30,000 ກີບ</div>
+                        <button class="w-full btn-primary text-white py-3 px-6 rounded-xl font-semibold order-btn" 
+                                data-package="1000ໃຈ ແຖມ 10000ວິວ" 
+                                data-price="30000">
+                            ສັ່ງຊື້ດຽວນີ້
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Row 3 -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Product Card 7 -->
+                    <div class="price-card rounded-xl shadow-lg p-6 card-hover">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">2000ໃຈ ແຖມ 20,000ວິວ</h3>
+                        <p class="text-gray-600 mb-4 text-sm">🟩 ໃຊ້ພຽງແຕ່ລິ້ງຄີບບໍ່ຕ້ອງໃສ່ລະຫັດຜ່ານ ງານໄວຂື້ນພາຍໃນ 0-24 ຊົ່ວໂມງ</p>
+                        <div class="text-3xl font-bold text-red-600 mb-4">45,000 ກີບ</div>
+                        <button class="w-full btn-primary text-white py-3 px-6 rounded-xl font-semibold order-btn" 
+                                data-package="2000ໃຈ ແຖມ 20000ວິວ" 
+                                data-price="45000">
+                            ສັ່ງຊື້ດຽວນີ້
+                        </button>
+                    </div>
+
+                    <!-- Product Card 8 -->
+                    <div class="price-card rounded-xl shadow-lg p-6 card-hover">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">3000ໃຈ ແຖມ 30,000ວິວ</h3>
+                        <p class="text-gray-600 mb-4 text-sm">🟩 ໃຊ້ພຽງແຕ່ລິ້ງຄີບບໍ່ຕ້ອງໃສ່ລະຫັດຜ່ານ ງານໄວຂື້ນພາຍໃນ 0-24 ຊົ່ວໂມງ</p>
+                        <div class="text-3xl font-bold text-red-600 mb-4">75,000 ກີບ</div>
+                        <button class="w-full btn-primary text-white py-3 px-6 rounded-xl font-semibold order-btn" 
+                                data-package="3000ໃຈ ແຖມ 30000ວິວ" 
+                                data-price="75000">
+                            ສັ່ງຊື້ດຽວນີ້
+                        </button>
+                    </div>
+
+                    <!-- Product Card 9 -->
+                    <div class="price-card rounded-xl shadow-lg p-6 card-hover">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">4000ໃຈ ແຖມ 40,000ວິວ</h3>
+                        <p class="text-gray-600 mb-4 text-sm">🟩 ໃຊ້ພຽງແຕ່ລິ້ງຄີບບໍ່ຕ້ອງໃສ່ລະຫັດຜ່ານ ງານໄວຂື້ນພາຍໃນ 0-24 ຊົ່ວໂມງ</p>
+                        <div class="text-3xl font-bold text-red-600 mb-4">90,000 ກີບ</div>
+                        <button class="w-full btn-primary text-white py-3 px-6 rounded-xl font-semibold order-btn" 
+                                data-package="4000ໃຈ ແຖມ 40000ວິວ" 
+                                data-price="90000">
+                            ສັ່ງຊື້ດຽວນີ້
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Row 4 -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Product Card 10 -->
+                    <div class="price-card rounded-xl shadow-lg p-6 card-hover relative">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">5000ໃຈ ແຖມ 50,000ວິວ</h3>
+                        <p class="text-gray-600 mb-4 text-sm">🟩 ໃຊ້ພຽງແຕ່ລິ້ງຄີບບໍ່ຕ້ອງໃສ່ລະຫັດຜ່ານ ງານໄວຂື້ນພາຍໃນ 0-24 ຊົ່ວໂມງ</p>
+                        <div class="text-3xl font-bold text-red-600 mb-4">155,000 ກີບ</div>
+                        <button class="w-full btn-primary text-white py-3 px-6 rounded-xl font-semibold order-btn" 
+                                data-package="5000ໃຈ ແຖມ 50000ວິວ" 
+                                data-price="155000">
+                            ສັ່ງຊື້ດຽວນີ້
+                        </button>
+                    </div>
+                </div>
+                
+            </div>
+        </section>
+
+        <!-- Order Cards Display -->
+        <section id="orderCardsSection" class="mb-16">
+            <h2 class="text-3xl font-bold text-center mb-8 text-gray-800">ຄຳສັ່ງຊື້ຂອງທ່ານ</h2>
+            <div id="orderCards" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Empty state message -->
+                <div id="emptyOrderMessage" class="col-span-full text-center py-12">
+                    <div class="bg-white rounded-2xl shadow-lg p-8 border border-gray-200">
+                        <div class="text-6xl mb-4">📋</div>
+                        <h3 class="text-xl font-semibold text-gray-600 mb-2">ບໍ່ມີລາຍການອໍເດີ</h3>
+                        <p class="text-gray-500">ເລືອກສິນຄ້າຂ້າງເທິງເພື່ອເລີ່ມສັ່ງຊື້</p>
+                    </div>
+                </div>
+                <!-- Loading placeholder (hidden by default) -->
+                <div id="loadingOrderMessage" class="col-span-full text-center py-12" style="display:none;">
+                    <div class="bg-white rounded-2xl shadow-lg p-8 border border-gray-200">
+                        <div class="mb-4">
+                            <!-- Simple spinner -->
+                            <div class="mx-auto w-12 h-12 border-4 border-gray-200 border-t-red-600 rounded-full animate-spin"></div>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-600 mb-2">ກຳລັງໂຫຼດລາຍການ...</h3>
+                        <p class="text-gray-500">ກະລຸນາລໍຖ້າ ກຳລັງນຳເຂົ້າຂໍ້ມູນຈາກ Server</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="mb-16">
+            <div class="bg-white rounded-3xl shadow-xl p-8 md:p-12">
+                <h2 class="text-3xl font-bold text-center mb-8 text-gray-800">ເປັນຫຍັງຕ້ອງເລືອກພວກເຮົາ?</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-2xl">⚡</span>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2 text-gray-800">ໄວທີ່ສຸດ</h3>
+                        <p class="text-gray-600">ດຳເນີນການພາຍໃນ 0 - 24 ຊົ່ວໂມງ</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-2xl">🛡️</span>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2 text-gray-800">ປອດໄພ</h3>
+                        <p class="text-gray-600">ໃຊ້ພຽງແຕ່ລິ້ງຄີບບໍ່ຕ້ອງໃສ່ລະຫັດຜ່ານ 100% ປອດໄພ</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-2xl">💯</span>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2 text-gray-800">ຄຸນນະພາບ</h3>
+                        <p class="text-gray-600">ຄຸນນະພາບດີ</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="gradient-bg text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">ຕິດຕໍ່ພວກເຮົາ</h3>
+                    <div class="space-y-3">
+                        <a href="https://www.facebook.com/share/177tbGs6C1/?mibextid=wwXIfr" 
+                        target="_blank"
+                        class="flex items-center justify-center md:justify-start hover:text-red-200 transition-colors">
+                            <img src="assets/Facebook.png" alt="Facebook Profile" class="w-6 h-6 mr-3">
+                            Natniti Zx
+                        </a>
+                        <a href="https://www.facebook.com/share/1GsPgWWvP7/?mibextid=wwXIfr" 
+                        target="_blank"
+                        class="flex items-center justify-center md:justify-start hover:text-red-200 transition-colors">
+                            <img src="assets/Page.png" alt="Facebook Page" class="w-6 h-6 mr-3">
+                            Natniti Store : ຮັບປໍ້າຕ່າງໆ
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">WhatsApp</h3>
+                    <a href="https://wa.me/8562097817095"
+                    target="_blank" 
+                    class="flex items-center justify-center md:justify-start hover:text-green-300 transition-colors">
+                    <img src="assets/whatapp.png" alt="WhatsApp" class="w-6 h-6 mr-3">
+                        +856 20 9781 7095
+                    </a>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">ບໍລິການປັ້ມໃຈ</h3>
+                    <p class="text-red-100">Natniti Store</p>
+                    <p class="text-sm text-red-200 mt-2">ບໍລິການທີ່ເຊື່ອຖືໄດ້</p>
+                </div>
+            </div>
+            <div class="border-t border-red-400 mt-8 pt-8 text-center">
+                <p class="text-red-100">&copy; Natniti Zx | Natniti Store</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Order Form Modal -->
+    <div id="orderModal" class="fixed inset-0 bg-black bg-opacity-60 modal hidden items-center justify-center z-50">
+        <div class="bg-white rounded-2xl p-8 max-w-lg w-full mx-4 max-h-[90vh] overflow-y-auto shadow-2xl">
+            <h3 class="text-2xl font-bold mb-6 text-center text-gray-800">ຄຳສັ່ງຊື້ໃຫມ່</h3>
+            <form id="orderForm">
+                <div class="space-y-6">
+                    <div class="bg-red-50 p-4 rounded-xl border border-red-200">
+                        <div class="text-lg font-semibold text-red-800">ແພັກເກັດ/ສິນຄ້າທີ່ເລືອກ:</div>
+                        <div id="selectedPackageDisplay" class="text-red-600 font-medium"></div>
+                        <div class="text-2xl font-bold text-red-700 mt-2">
+                            <span id="selectedPriceDisplay"></span> ກີບ
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-semibold mb-2 text-gray-700">ລິ້ງວີດີໂອ TikTok ຂອງທ່ານ *</label>
+                        <a href="assets/Copylinktut.png" target="_blank" class="text-sm text-red-600 underline mb-1 inline-block">ກົດເພື່ອເບິ່ງວິທີຄັດລັອກລິ້ງວິດີໂອ TikTok</a>
+                        <input type="text" id="tiktokLink" required 
+                               class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all"
+                               placeholder="ໃສ່ລິ້ງຄິບ TikTok">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-semibold mb-2 text-gray-700">ຊ່ອງທາງຕິດຕໍ່ຂອງທ່ານ *</label>
+                        <input type="text" id="contactInfo" required 
+                               placeholder="ປ້ອນເບີ WhatsApp ຫລື Facebook" 
+                               class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-semibold mb-2 text-gray-700">ຂໍ້ຄວາມ / ໂນ້ດ (ຖ້າມີ)</label>
+                        <textarea id="specialMessage" rows="3" 
+                                  placeholder="ຂໍ້ຄວາມ / ໂນ້ດ (ຖ້າມີ)"
+                                  class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all"></textarea>
+                    </div>
+                    
+                    <div class="bg-gradient-to-r from-red-50 to-rose-50 p-6 rounded-xl border border-red-200">
+                        <div class="text-center mb-4">
+                            <div class="text-sm text-gray-600 mb-3">ຄິວອາສຳລັບສະແກນຈ່າຍ</div>
+                            <div class="w-32 h-32 mx-auto rounded-xl shadow-inner">
+                                <!-- QR image: place your QR file at assets/qr.png or change the src to an external URL -->
+                                <img id="qrImage" src="assets/qr.png" alt="QR code" 
+                                     class="w-32 h-32 object-cover rounded-none mx-auto" 
+                                     onerror="this.style.display='none';document.getElementById('qrFallback').style.display='flex'">
+                                <!-- Fallback shown when image is missing or fails to load -->
+                                <div id="qrFallback" class="w-32 h-32 bg-gray-200 mx-auto rounded-xl flex items-center justify-center text-gray-500 font-medium" style="display:none;">
+                                    QR CODE
+                                </div>
+                            </div>
+                            <div class="mt-4 text-sm space-y-1">
+                                <div class="font-semibold text-gray-700">ເລກບັນຊີ: 0101237636072</div>
+                                <div class="font-semibold text-gray-700">ຊື່ເລກບັນຊີ: ຄິດທະພອນ ພູມມະໄຊທອງ / ຊື່ຄິວອາ : ສົມພັນ ວັນນະວົງ</div>
+                                <div class="text-red-600 font-medium">ເລກບັນຊີທະນາຄານ: ການຄ້າ / BCEL , ຄິວອາ: Umoney</div>
+                                <a href="assets/qr.png" target="_blank" class="text-xs text-red-500 underline pb-4 pt-1">ກົດບ່ອນນີ້ເພື່ອເບິ່ງສະເພາະຄິວອາ</a>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-semibold mb-2 text-gray-700">ແນບຮູບສະລິບການໂອນ *</label>
+                            <input type="file" id="paymentSlip" accept="image/*" required 
+                                   class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all">
+                            <div id="paymentSlipPreview" class="mt-3 hidden">
+                                <img id="paymentSlipImage" class="w-full max-w-xs mx-auto rounded-lg border shadow-sm" alt="Payment Slip Preview">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex gap-4 mt-8">
+                    <button type="button" id="closeOrderModal" 
+                            class="flex-1 bg-gray-500 hover:bg-gray-600 text-white py-3 px-6 rounded-xl font-semibold transition-all">
+                        ຍົກເລີກ
+                    </button>
+                    <button type="submit" 
+                            class="flex-1 btn-primary text-white py-3 px-6 rounded-xl font-semibold">
+                        ຢືນຢັນສັ່ງຊື້
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Refill Modal -->
+    <div id="refillModal" class="fixed inset-0 bg-black bg-opacity-60 modal hidden items-center justify-center z-50">
+        <div class="bg-white rounded-2xl p-8 max-w-lg w-full mx-4 max-h-[90vh] overflow-y-auto shadow-2xl">
+            <h3 class="text-2xl font-bold mb-6 text-center text-gray-800">ຂໍເຕີມຍອດ / Refill Request</h3>
+            <form id="refillForm">
+                <div class="space-y-6">
+                    <div class="bg-blue-50 p-4 rounded-xl border border-blue-200">
+                        <div class="text-lg font-semibold text-blue-800 mb-2">🔄 ຂໍ້ມູນການເຕີມຍອດ</div>
+                        <div class="text-blue-600 text-sm mb-2">ໝາຍເລກຄຳສັ່ງຊື້: <span id="refillOrderId" class="font-semibold"></span></div>
+                        <div class="text-blue-600 text-sm">ສິນຄ້າ: <span id="refillPackage" class="font-semibold"></span></div>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-semibold mb-2 text-gray-700">ລິ້ງວີດີໂອ TikTok ທີ່ຕ້ອງການເຕີມຍອດ *</label>
+                        <input type="text" id="refillTiktokLink" required readonly
+                               class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl bg-gray-100 text-gray-700 cursor-not-allowed"
+                               placeholder="ໃສ່ລິ້ງຄິບ TikTok">
+                    </div>
+                    
+                    <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-xl border border-blue-200">
+                        <div class="text-center mb-4">
+                            <div class="text-sm text-gray-600 mb-3">ຫຼັກຖານຍອດປັດຈຸບັນ</div>
+                            <div class="text-xs text-gray-500 mb-4">ກະລຸນາແນບຮູບຍອດໃຈ ຫລື ວິວປັດຈຸບັນຂອງວີດີໂອ</div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-semibold mb-2 text-gray-700">ແນບຮູບຫຼັກຖານຍອດປັດຈຸບັນ *</label>
+                            <input type="file" id="refillProof" accept="image/*" required 
+                                   class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
+                            <div id="refillProofPreview" class="mt-3 hidden">
+                                <img id="refillProofImage" class="w-full max-w-xs mx-auto rounded-lg border shadow-sm" alt="Refill Proof Preview">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex gap-4 mt-8">
+                    <button type="button" id="closeRefillModal" 
+                            class="flex-1 bg-gray-500 hover:bg-gray-600 text-white py-3 px-6 rounded-xl font-semibold transition-all">
+                        ຍົກເລີກ
+                    </button>
+                    <button type="submit" 
+                            class="flex-1 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white py-3 px-6 rounded-xl font-semibold transition-all">
+                        ສົ່ງຄຳຂໍເຕີມຍອດ
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Warranty Expired Modal -->
+    <div id="warrantyExpiredModal" class="fixed inset-0 bg-black bg-opacity-60 modal hidden items-center justify-center z-50">
+        <div class="bg-white rounded-2xl p-8 max-w-md w-full mx-4 shadow-2xl">
+            <div class="text-center">
+                <div class="text-6xl mb-4">⏰</div>
+                <h3 class="text-2xl font-bold mb-4 text-gray-800">ປະກັນໝົດແລ້ວ</h3>
+                <p class="text-gray-600 mb-6">ຂໍອະໄພ, ໄລຍະປະກັນຂອງຄຳສັ່ງຊື້ນີ້ໝົດແລ້ວ (ເກີນ 7 ມື້)</p>
+                <p class="text-sm text-gray-500 mb-6">ຂໍອະໄພໃນຄວາມບໍໍ່ສະດວກ</p>
+                <button id="closeWarrantyModal" 
+                        class="w-full bg-red-600 hover:bg-red-700 text-white py-3 px-6 rounded-xl font-semibold transition-all">
+                    ເຂົ້າໃຈແລ້ວ
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Login Modal -->
+    <!-- Admin Login Modal removed (using Discord bot for admin actions) -->
+
+    <!-- Admin Panel removed (Discord bot used for admin actions) -->
+
+    <!-- Order Details Modal -->
+    <div id="orderDetailsModal" class="fixed inset-0 bg-black bg-opacity-60 modal hidden items-center justify-center z-50">
+        <div class="bg-white rounded-2xl p-8 max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto shadow-2xl">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold text-gray-800">ລາຍລະອຽດຄຳສັ່ງຊື້</h3>
+                <button id="closeOrderDetailsModal" class="text-gray-400 hover:text-gray-600">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            
+            <div id="orderDetailsContent">
+                <!-- Order details will be populated here -->
+            </div>
+            
+            <div id="orderActionsSection" class="mt-8 pt-6 border-t border-gray-200">
+                <div class="flex gap-4">
+                    <button id="approveOrderBtn" 
+                            class="flex-1 bg-green-600 hover:bg-green-700 text-white py-3 px-6 rounded-xl font-semibold transition-all">
+                        ✅ ຢືນຢັນຄຳສັ່ງຊື້
+                    </button>
+                    <button id="rejectOrderBtn" 
+                            class="flex-1 bg-red-600 hover:bg-red-700 text-white py-3 px-6 rounded-xl font-semibold transition-all">
+                        ❌ ປະຕິເສດ
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reject Order Modal -->
+    <div id="rejectOrderModal" class="fixed inset-0 bg-black bg-opacity-60 modal hidden items-center justify-center z-50">
+        <div class="bg-white rounded-2xl p-8 max-w-md w-full mx-4 shadow-2xl">
+            <h3 class="text-xl font-bold mb-4 text-gray-800">ປະຕິເສດຄຳສັ່ງຊື້</h3>
+            <form id="rejectOrderForm">
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">ເຫດຜົນໃນການປະຕິເສດ *</label>
+                    <textarea id="rejectReason" required rows="4" 
+                              class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all"
+                              placeholder="ກະລຸນາລະບຸເຫດຜົນ..."></textarea>
+                </div>
+                <div class="flex gap-4">
+                    <button type="button" id="closeRejectOrderModal" 
+                            class="flex-1 bg-gray-500 hover:bg-gray-600 text-white py-3 px-6 rounded-xl font-semibold transition-all">
+                        ຍົກເລີກ
+                    </button>
+                    <button type="submit" 
+                            class="flex-1 bg-red-600 hover:bg-red-700 text-white py-3 px-6 rounded-xl font-semibold transition-all">
+                        ຢືນຢັນປະຕິເສດ
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Refill Details Modal -->
+    <div id="refillDetailsModal" class="fixed inset-0 bg-black bg-opacity-60 modal hidden items-center justify-center z-50">
+        <div class="bg-white rounded-2xl p-8 max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto shadow-2xl">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold text-gray-800">ລາຍລະອຽດຄຳຂໍເຕີມຍອດ</h3>
+                <button id="closeRefillDetailsModal" class="text-gray-400 hover:text-gray-600">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            
+            <div id="refillDetailsContent">
+                <!-- Refill details will be populated here -->
+            </div>
+            
+            <div id="refillActionsSection" class="mt-8 pt-6 border-t border-gray-200">
+                <div class="flex gap-4">
+                    <button id="completeRefillBtn" 
+                            class="flex-1 bg-green-600 hover:bg-green-700 text-white py-3 px-6 rounded-xl font-semibold transition-all">
+                        ✅ ເຕີມຍອດສຳເລັດ
+                    </button>
+                    <button id="rejectRefillBtn" 
+                            class="flex-1 bg-red-600 hover:bg-red-700 text-white py-3 px-6 rounded-xl font-semibold transition-all">
+                        ❌ ປະຕິເສດ
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reject Refill Modal -->
+    <div id="rejectRefillModal" class="fixed inset-0 bg-black bg-opacity-60 modal hidden items-center justify-center z-50">
+        <div class="bg-white rounded-2xl p-8 max-w-md w-full mx-4 shadow-2xl">
+            <h3 class="text-xl font-bold mb-4 text-gray-800">ປະຕິເສດຄຳຂໍເຕີມຍອດ</h3>
+            <form id="rejectRefillForm">
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">ເຫດຜົນໃນການປະຕິເສດ *</label>
+                    <textarea id="rejectRefillReason" required rows="4" 
+                              class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all"
+                              placeholder="ກະລຸນາລະບຸເຫດຜົນ..."></textarea>
+                </div>
+                <div class="flex gap-4">
+                    <button type="button" id="closeRejectRefillModal" 
+                            class="flex-1 bg-gray-500 hover:bg-gray-600 text-white py-3 px-6 rounded-xl font-semibold transition-all">
+                        ຍົກເລີກ
+                    </button>
+                    <button type="submit" 
+                            class="flex-1 bg-red-600 hover:bg-red-700 text-white py-3 px-6 rounded-xl font-semibold transition-all">
+                        ຢືນຢັນປະຕິເສດ
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="fixed inset-0 bg-black bg-opacity-60 modal hidden items-center justify-center z-50">
+        <div class="bg-white rounded-2xl p-8 max-w-md w-full mx-4 shadow-2xl">
+            <div class="text-center">
+                <div class="text-6xl mb-4">✅</div>
+                <h3 class="text-2xl font-bold mb-4 text-gray-800" id="successTitle">ສຳເລັດ!</h3>
+                <p class="text-gray-600 mb-6" id="successMessage">ດຳເນີນການຮຽບຮ້ອຍແລ້ວ</p>
+                <button id="closeSuccessModal" 
+                        class="w-full bg-green-600 hover:bg-green-700 text-white py-3 px-6 rounded-xl font-semibold transition-all">
+                    ຕົກລົງ
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Access Button removed -->
+
+    <script>
+        // Firebase Configuration
+        const firebaseConfig = {
+             apiKey: "AIzaSyAF8WNaE97T2ptGTtY7AmpZNyCN5uZTUAo",
+             authDomain: "natnitilike-99.firebaseapp.com",
+             projectId: "natnitilike-99",
+             storageBucket: "natnitilike-99.firebasestorage.app",
+             messagingSenderId: "750490251381",
+             appId: "1:750490251381:web:4e45e1c9e222a0ac93883c",
+             measurementId: "G-VXJG7WGMGZ",
+             databaseURL: "https://natnitilike-99-default-rtdb.asia-southeast1.firebasedatabase.app"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
+        // ==================== API CONFIGURATION ====================
+    // NOTE: API keys must NOT be stored in client-side code. Server-side (Workers) should hold secrets.
+    // Replace the placeholder below with your Cloudflare Workers base URL (e.g. https://your-subdomain.workers.dev)
+    const WORKER_BASE = 'https://natnitis-proxy.natnitiwongwarang6.workers.dev';
+
+
+    // Cloudinary (for storing payment slip / proof images) - using unsigned upload preset.
+    // Create an unsigned upload preset in your Cloudinary account and set the CLOUD_NAME and UPLOAD_PRESET below.
+    // These values are public for unsigned uploads; do NOT put your Cloudinary API secret in client code.
+    const CLOUDINARY_CLOUD_NAME = 'dvfeed75e';
+    const CLOUDINARY_UPLOAD_PRESET = 'NatnitiStore';
+
+        const API_CONFIG = {
+            // only keep service IDs (no secrets here)
+            likes: { service: 2706 },
+            views: { service: 240 },
+
+            // Package Configuration
+            packages: {
+                '100ໃຈ ແຖມ 1000ວິວ': { likes: 100, views: 1000, price: 5000 },
+                '200ໃຈ ແຖມ 2000ວິວ': { likes: 200, views: 2000, price: 9000 },
+                '300ໃຈ ແຖມ 3000ວິວ': { likes: 300, views: 3000, price: 12000 },
+                '400ໃຈ ແຖມ 4000ວິວ': { likes: 400, views: 4000, price: 15000 },
+                '500ໃຈ ແຖມ 5000ວິວ': { likes: 500, views: 5000, price: 20000 },
+                '1000ໃຈ ແຖມ 10000ວິວ': { likes: 1000, views: 10000, price: 30000 },
+                '2000ໃຈ ແຖມ 20000ວິວ': { likes: 2000, views: 20000, price: 45000 },
+                '3000ໃຈ ແຖມ 30000ວິວ': { likes: 3000, views: 30000, price: 75000 },
+                '4000ໃຈ ແຖມ 40000ວິວ': { likes: 4000, views: 40000, price: 90000 },
+                '5000ໃຈ ແຖມ 50000ວິວ': { likes: 5000, views: 50000, price: 155000 }
+            }
+        };
+
+        // Global variables
+        let selectedPackage = null;
+        let selectedPrice = 0;
+        let orderCounter = 0;
+        let adminOrders = [];
+        let adminRefills = [];
+        let userOrders = []; // Store user's own orders
+        let currentOrderId = null;
+        let currentRefillId = null;
+    // Admin password is handled server-side by the Worker. Client must call /admin/login to get a token.
+        let userId = null;
+
+        // Generate UUID for order ID
+        function generateOrderId() {
+            return 'ORD-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9).toUpperCase();
+        }
+
+        // Generate User ID
+        function generateUserId() {
+            let userId = localStorage.getItem('userId');
+            if (!userId) {
+                userId = 'USER-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9).toUpperCase();
+                localStorage.setItem('userId', userId);
+            }
+            return userId;
+        }
+
+        // Format price with commas
+        function formatPrice(price) {
+            return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+
+        // Upload file to Cloudinary (unsigned)
+        async function uploadToCloudinary(file) {
+            if (!CLOUDINARY_CLOUD_NAME || !CLOUDINARY_UPLOAD_PRESET) {
+                throw new Error('Cloudinary configuration missing. Set CLOUDINARY_CLOUD_NAME and CLOUDINARY_UPLOAD_PRESET.');
+            }
+
+            const url = `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/auto/upload`;
+            const fd = new FormData();
+            fd.append('file', file);
+            fd.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+
+            const resp = await fetch(url, { method: 'POST', body: fd });
+            if (!resp.ok) {
+                const txt = await resp.text();
+                // Provide clearer guidance for 401 (Unauthorized) which likely means upload_preset or cloud name is wrong or preset is not unsigned
+                if (resp.status === 401 || txt.toLowerCase().includes('unauthorized') || txt.toLowerCase().includes('unknown api key')) {
+                    console.error('Cloudinary returned 401/Unauthorized. Check CLOUDINARY_CLOUD_NAME and that the upload preset is unsigned and exists. Response:', txt);
+                    throw new Error('Cloudinary upload failed (401 Unauthorized) - check CLOUDINARY_CLOUD_NAME and UPLOAD_PRESET and make sure preset is unsigned.');
+                }
+                console.error('Cloudinary upload failed. Status:', resp.status, 'Body:', txt);
+                throw new Error('Cloudinary upload failed: ' + txt);
+            }
+            const data = await resp.json();
+            // data.secure_url contains the uploaded file URL
+            return { url: data.secure_url, raw: data };
+        }
+
+        // Main API call function - Updated for dual API calls
+        async function callTikTokAPI(order) {
+            console.log('🚀 Calling TikTok APIs for order:', order.orderId);
+
+            try {
+                const packageConfig = API_CONFIG.packages[order.package];
+                if (!packageConfig) {
+                    throw new Error(`Package configuration not found: ${order.package}`);
+                }
+
+                const results = { likes: null, views: null, success: false };
+
+                // Call Likes via worker
+                try {
+                    console.log('📤 Proxying Likes via Worker...');
+                    const likesResp = await fetch(WORKER_BASE + '/proxy', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ provider: 'likes', link: order.tiktokLink, quantity: packageConfig.likes })
+                    });
+                    const likesData = await likesResp.json();
+                    console.log('📥 Likes Proxy Response:', likesData);
+                    results.likes = likesData;
+                } catch (e) {
+                    console.error('💥 Likes proxy failed:', e);
+                }
+
+                // Call Views via worker
+                try {
+                    console.log('📤 Proxying Views via Worker...');
+                    const viewsResp = await fetch(WORKER_BASE + '/proxy', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ provider: 'views', link: order.tiktokLink, quantity: packageConfig.views })
+                    });
+                    const viewsData = await viewsResp.json();
+                    console.log('📥 Views Proxy Response:', viewsData);
+                    results.views = viewsData;
+                } catch (e) {
+                    console.error('💥 Views proxy failed:', e);
+                }
+
+                // Update order status based on API results
+                const apiStatus = (results.likes || results.views) ? 'processing' : 'failed';
+                results.success = apiStatus === 'processing';
+
+                await updateOrderInFirebase(order.orderId, {
+                    apiStatus: apiStatus,
+                    apiResults: results,
+                    likesOrderId: results.likes?.data?.order || results.likes?.data?.data?.order || null,
+                    viewsOrderId: results.views?.data?.order || results.views?.data?.data?.order || null,
+                    processedAt: new Date().toISOString()
+                });
+
+                console.log('✅ API proxy calls completed. Status:', apiStatus);
+                return results;
+
+            } catch (error) {
+                console.error('💥 API Call Failed:', error);
+                await updateOrderInFirebase(order.orderId, { apiError: error.message, apiStatus: 'failed' });
+                return { success: false, error: error.message };
+            }
+        }
+
+        // Firebase Functions
+        async function saveOrderToFirebase(orderData) {
+            try {
+                await database.ref('orders/' + orderData.orderId).set(orderData);
+                console.log('Order saved to Firebase:', orderData.orderId);
+            } catch (error) {
+                console.error('Error saving order to Firebase:', error);
+                // Fallback to localStorage if Firebase fails
+                saveToLocalStorage();
+            }
+        }
+
+        async function saveRefillToFirebase(refillData) {
+            try {
+                await database.ref('refills/' + refillData.refillId).set(refillData);
+                console.log('Refill saved to Firebase:', refillData.refillId);
+            } catch (error) {
+                console.error('Error saving refill to Firebase:', error);
+                // Fallback to localStorage if Firebase fails
+                saveToLocalStorage();
+            }
+        }
+
+        async function updateOrderInFirebase(orderId, updates) {
+            try {
+                await database.ref('orders/' + orderId).update(updates);
+                console.log('Order updated in Firebase:', orderId);
+            } catch (error) {
+                console.error('Error updating order in Firebase:', error);
+            }
+        }
+
+        async function updateRefillInFirebase(refillId, updates) {
+            try {
+                // sanitize status if present
+                if (updates && typeof updates.status === 'string') {
+                    const allowed = ['pending', 'completed', 'rejected'];
+                    if (!allowed.includes(updates.status)) {
+                        // coerce unknown statuses to 'pending'
+                        updates.status = 'pending';
+                    }
+                }
+                // remove any accidental properties that should not be stored directly
+                // (we only coerce status here; other fields pass through)
+                await database.ref('refills/' + refillId).update(updates);
+                console.log('Refill updated in Firebase:', refillId);
+            } catch (error) {
+                console.error('Error updating refill in Firebase:', error);
+            }
+        }
+
+        // --- NEW: Cleanup base64 images older than X days (default 30) ---
+        async function cleanupOldBase64Files(days = 30) {
+            try {
+                const cutoffTime = Date.now() - days * 24 * 60 * 60 * 1000;
+                const removed = { orders: [], refills: [] };
+
+                // Orders
+                const ordersSnap = await database.ref('orders').once('value');
+                const orders = ordersSnap.val() || {};
+                for (const key in orders) {
+                    if (!Object.prototype.hasOwnProperty.call(orders, key)) continue;
+                    const order = orders[key];
+                    const createdAt = order.createdAt ? new Date(order.createdAt).getTime() : 0;
+                    if (createdAt && createdAt < cutoffTime) {
+                        const updates = {};
+                        let changed = false;
+                        if (order.paymentSlip) { updates.paymentSlip = null; updates.paymentSlipName = null; changed = true; }
+                        if (order.proofImage)   { updates.proofImage = null; updates.proofImageName = null; changed = true; }
+                        if (changed) {
+                            updates.base64RemovedAt = new Date().toISOString();
+                            await database.ref('orders/' + key).update(updates);
+                            removed.orders.push(key);
+                            console.log(`cleanup: removed base64 from order ${key}`);
+                        }
+                    }
+                }
+
+                // Refills
+                const refillsSnap = await database.ref('refills').once('value');
+                const refills = refillsSnap.val() || {};
+                for (const key in refills) {
+                    if (!Object.prototype.hasOwnProperty.call(refills, key)) continue;
+                    const refill = refills[key];
+                    const createdAt = refill.createdAt ? new Date(refill.createdAt).getTime() : 0;
+                    if (createdAt && createdAt < cutoffTime) {
+                        const updates = {};
+                        let changed = false;
+                        if (refill.proofImage) { updates.proofImage = null; updates.proofImageName = null; changed = true; }
+                        if (changed) {
+                            updates.base64RemovedAt = new Date().toISOString();
+                            await database.ref('refills/' + key).update(updates);
+                            removed.refills.push(key);
+                            console.log(`cleanup: removed base64 from refill ${key}`);
+                        }
+                    }
+                }
+
+                console.log(`cleanupOldBase64Files finished. Days=${days}. Orders cleaned=${removed.orders.length}, Refills cleaned=${removed.refills.length}`);
+                // Optional: write a cleanup log to Firebase
+                // await database.ref('cleanupLogs/' + Date.now()).set({ removed, days, runAt: new Date().toISOString() });
+
+            } catch (err) {
+                console.error('cleanupOldBase64Files error:', err);
+            }
+        }
+        // --- END NEW ---
+
+        function loadUserOrdersFromFirebase() {
+            // show loading placeholder while Firebase returns data
+            const loadingEl = document.getElementById('loadingOrderMessage');
+            const emptyEl = document.getElementById('emptyOrderMessage');
+            if (loadingEl) loadingEl.style.display = 'block';
+            if (emptyEl) emptyEl.style.display = 'none';
+
+            database.ref('orders').orderByChild('userId').equalTo(userId).on('value', (snapshot) => {
+                userOrders = [];
+                const data = snapshot.val();
+                if (data) {
+                    Object.values(data).forEach(order => {
+                        userOrders.push(order);
+                    });
+                }
+                
+                // Clear and redisplay user orders
+                const orderCards = document.getElementById('orderCards');
+                // Only remove previously rendered user order cards (don't remove the
+                // empty state message which shares some utility classes).
+                const existingCards = orderCards.querySelectorAll('.user-order-card');
+                existingCards.forEach(card => card.remove());
+                
+                userOrders.forEach(order => createOrderCard(order));
+                // hide loading placeholder
+                if (loadingEl) loadingEl.style.display = 'none';
+
+                if (userOrders.length > 0) {
+                    if (emptyEl) emptyEl.style.display = 'none';
+                } else {
+                    if (emptyEl) emptyEl.style.display = 'block';
+                }
+            });
+        }
+
+        function loadAdminOrdersFromFirebase() {
+            database.ref('orders').on('value', (snapshot) => {
+                adminOrders = [];
+                const data = snapshot.val();
+                if (data) {
+                    Object.values(data).forEach(order => {
+                        adminOrders.push(order);
+                    });
+                }
+                updateAdminStats();
+                renderAdminOrders();
+            });
+        }
+
+        function loadAdminRefillsFromFirebase() {
+            database.ref('refills').on('value', (snapshot) => {
+                adminRefills = [];
+                const data = snapshot.val();
+                if (data) {
+                    Object.values(data).forEach(refill => {
+                        adminRefills.push(refill);
+                    });
+                }
+                updateAdminStats();
+                renderAdminRefills();
+            });
+        }
+
+        // Fallback localStorage functions
+        function loadData() {
+            // This is now mainly for fallback
+            const savedUserOrders = localStorage.getItem('userOrders');
+            
+            if (savedUserOrders) {
+                userOrders = JSON.parse(savedUserOrders);
+                userOrders.forEach(order => createOrderCard(order));
+                if (userOrders.length > 0) {
+                    document.getElementById('emptyOrderMessage').style.display = 'none';
+                }
+            }
+        }
+
+        function saveToLocalStorage() {
+            localStorage.setItem('adminOrders', JSON.stringify(adminOrders));
+            localStorage.setItem('adminRefills', JSON.stringify(adminRefills));
+            localStorage.setItem('userOrders', JSON.stringify(userOrders));
+        }
+
+        // Event Listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize user ID
+            userId = generateUserId();
+            
+            // Load user orders from Firebase
+            loadUserOrdersFromFirebase();
+            
+            // Fallback to localStorage if needed
+            loadData();
+            
+            // Run cleanup of base64 stored images older than 30 days on load
+            cleanupOldBase64Files(30).catch(e => console.error(e));
+            // Schedule cleanup to run every 24 hours
+            setInterval(() => cleanupOldBase64Files(30).catch(e => console.error(e)), 24 * 60 * 60 * 1000);
+            // Warn if Cloudinary is not configured (prevents confusing 401s)
+            if (!CLOUDINARY_CLOUD_NAME || !CLOUDINARY_UPLOAD_PRESET || CLOUDINARY_CLOUD_NAME.includes('YOUR_') || CLOUDINARY_UPLOAD_PRESET.includes('YOUR_')) {
+                console.warn('Cloudinary not configured. Set CLOUDINARY_CLOUD_NAME and CLOUDINARY_UPLOAD_PRESET in the script to enable uploads.');
+            }
+            
+            // Payment slip preview (local preview before upload)
+            document.getElementById('paymentSlip').addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(ev) {
+                        document.getElementById('paymentSlipImage').src = ev.target.result;
+                        document.getElementById('paymentSlipPreview').classList.remove('hidden');
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            // Refill proof preview (local preview before upload)
+            document.getElementById('refillProof').addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(ev) {
+                        document.getElementById('refillProofImage').src = ev.target.result;
+                        document.getElementById('refillProofPreview').classList.remove('hidden');
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+            
+            // Order button clicks
+            const orderButtons = document.querySelectorAll('.order-btn');
+            orderButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    selectedPackage = this.getAttribute('data-package');
+
+                    selectedPrice = parseInt(this.getAttribute('data-price'));
+                    
+                    document.getElementById('selectedPackageDisplay').textContent = selectedPackage;
+                    document.getElementById('selectedPriceDisplay').textContent = formatPrice(selectedPrice);
+                    
+                    document.getElementById('orderModal').classList.remove('hidden');
+                    document.getElementById('orderModal').classList.add('flex');
+                });
+            });
+
+            // Close modal
+            document.getElementById('closeOrderModal').addEventListener('click', function() {
+                document.getElementById('orderModal').classList.add('hidden');
+                document.getElementById('orderModal').classList.remove('flex');
+                // Reset preview
+                document.getElementById('paymentSlipPreview').classList.add('hidden');
+            });
+
+            // Order form submission
+            document.getElementById('orderForm').addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const orderId = generateOrderId();
+                const tiktokLink = document.getElementById('tiktokLink').value;
+                const contactInfo = document.getElementById('contactInfo').value;
+                const specialMessage = document.getElementById('specialMessage').value;
+                const paymentSlip = document.getElementById('paymentSlip').files[0];
+
+                if (!paymentSlip) {
+                    alert('ກະລຸນາແນບຮູບສະລິບການໂອນ');
+                    return;
+                }
+
+                // Disable submit button and show spinner while uploading/creating order
+                const orderSubmitBtn = document.querySelector('#orderModal button[type="submit"]');
+                if (orderSubmitBtn) { orderSubmitBtn.disabled = true; orderSubmitBtn.innerHTML = 'ກະລຸນາລໍຖ້າ'; }
+
+                // Upload to Cloudinary (unsigned preset)
+                let uploadResult;
+                try {
+                    uploadResult = await uploadToCloudinary(paymentSlip);
+                } catch (err) {
+                    console.error('Upload to Cloudinary failed:', err);
+                    alert("ບໍ່ສາມາດອັບໂຫຼດຮູບໄດ້!, ກະລຸນາລອງໃຫມ່ອີກຄັ້ງ");
+                    if (orderSubmitBtn) { orderSubmitBtn.disabled = false; orderSubmitBtn.innerHTML = 'ຢືນຢັນສັ່ງຊື້'; }
+                    return;
+                }
+
+                // Create order data (store Cloudinary URL instead of base64)
+                const orderData = {
+                    orderId: orderId,
+                    userId: userId,
+                    package: selectedPackage,
+                    price: selectedPrice,
+                    tiktokLink: tiktokLink,
+                    contactInfo: contactInfo,
+                    specialMessage: specialMessage,
+                    status: 'pending',
+                    createdAt: new Date().toISOString(),
+                    warrantyUntil: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
+                    paymentSlipUrl: uploadResult.url,
+                    paymentSlipName: paymentSlip.name,
+                    paymentSlipMeta: uploadResult.raw
+                };
+
+                // Save to Firebase (this will automatically sync to all devices)
+                await saveOrderToFirebase(orderData);
+                
+                // Add to local arrays for immediate display
+                adminOrders.push(orderData);
+                userOrders.push(orderData);
+                
+                // Fallback save to localStorage
+                saveToLocalStorage();
+                
+                // Create order card
+                createOrderCard(orderData);
+                
+                // Show success modal
+                showSuccessModal('ສັ່ງຊື້ສຳເລັດ!', `ໝາຍເລກຄຳສັ່ງຊື້ຂອງທ່ານ: ${orderId}\nກະລຸນາລໍຖ້າພວກເຮົາຢືນຢັນການໂອນເງິນ/ກວດສອບຄຳສັ່ງຊື້ ແລະ ເລີ່ມດໍາເນີນການໃນໄວໆນີ້ (0-24 ຊົ່ວໂມງ)`);
+                
+                // Close modal and reset form
+                document.getElementById('orderModal').classList.add('hidden');
+                document.getElementById('orderModal').classList.remove('flex');
+                document.getElementById('orderForm').reset();
+                document.getElementById('paymentSlipPreview').classList.add('hidden');
+                if (orderSubmitBtn) { orderSubmitBtn.disabled = false; orderSubmitBtn.innerHTML = 'ຢືນຢັນສັ່ງຊື້'; }
+                
+                // Hide empty message when first order is created
+                document.getElementById('emptyOrderMessage').style.display = 'none';
+            });
+
+            // Close modal when clicking outside
+            document.getElementById('orderModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.classList.add('hidden');
+                    this.classList.remove('flex');
+                    document.getElementById('paymentSlipPreview').classList.add('hidden');
+                }
+            });
+
+            // Refill button clicks
+            document.addEventListener('click', function(e) {
+                if (e.target.classList.contains('refill-btn')) {
+                    const orderId = e.target.getAttribute('data-order-id');
+                    const warrantyUntil = e.target.getAttribute('data-warranty-until');
+                    const packageName = e.target.getAttribute('data-package');
+                    const tiktokLink = e.target.getAttribute('data-tiktok-link');
+                    
+                    // Check if warranty is still valid (within 7 days)
+                    const warrantyDate = new Date(warrantyUntil);
+                    const currentDate = new Date();
+                    
+                    if (currentDate > warrantyDate) {
+                        // Warranty expired - show expired modal
+                        document.getElementById('warrantyExpiredModal').classList.remove('hidden');
+                        document.getElementById('warrantyExpiredModal').classList.add('flex');
+                    } else {
+                        // Warranty still valid - show refill modal
+                        document.getElementById('refillOrderId').textContent = orderId;
+                        document.getElementById('refillPackage').textContent = packageName;
+                        document.getElementById('refillTiktokLink').value = tiktokLink;
+                        document.getElementById('refillModal').classList.remove('hidden');
+                        document.getElementById('refillModal').classList.add('flex');
+                    }
+                }
+            });
+
+            // Close refill modal
+            document.getElementById('closeRefillModal').addEventListener('click', function() {
+                document.getElementById('refillModal').classList.add('hidden');
+                document.getElementById('refillModal').classList.remove('flex');
+                document.getElementById('refillProofPreview').classList.add('hidden');
+            });
+
+            // Close warranty expired modal
+            document.getElementById('closeWarrantyModal').addEventListener('click', function() {
+                document.getElementById('warrantyExpiredModal').classList.add('hidden');
+                document.getElementById('warrantyExpiredModal').classList.remove('flex');
+            });
+
+            // Refill form submission
+            document.getElementById('refillForm').addEventListener('submit', async function(e) {
+                e.preventDefault();
+                // disable submit button and show processing text
+                const submitBtn = this.querySelector('button[type="submit"]');
+                const originalText = submitBtn ? submitBtn.textContent : null;
+                if (submitBtn) {
+                    submitBtn.disabled = true;
+                    submitBtn.textContent = 'ກະລຸນາລໍຖ້າ';
+                    submitBtn.classList.add('opacity-70', 'cursor-wait');
+                }
+                
+                const refillId = generateOrderId().replace('ORD-', 'REF-');
+                const orderId = document.getElementById('refillOrderId').textContent;
+                const packageName = document.getElementById('refillPackage').textContent;
+                const tiktokLink = document.getElementById('refillTiktokLink').value;
+                const proofImage = document.getElementById('refillProof').files[0];
+                
+                if (!proofImage) {
+                    alert('ກະລຸນາແນບຮູບຫຼັກຖານຍອດປັດຈຸບັນ');
+                    return;
+                }
+
+                // Upload proof image to Cloudinary
+                let proofUpload;
+                try {
+                    proofUpload = await uploadToCloudinary(proofImage);
+                } catch (err) {
+                    console.error('Cloudinary upload failed for refill proof:', err);
+                    alert('ບໍ່ສາມາດອັບໂຫຼດຮູບໄດ້!, ກະລຸນາລອງໃໝ່ອີກຄັ້ງ');
+                    return;
+                }
+
+                // Try to include the original order's details (contact, package, note) so the bot embed
+                // contains the information exactly as when the order was placed.
+                const originalOrder = (adminOrders.find(o => o.orderId === orderId) || userOrders.find(o => o.orderId === orderId) || null);
+                const originalContact = originalOrder ? (originalOrder.contactInfo || '') : '';
+                const originalPackage = originalOrder ? (originalOrder.package || packageName) : packageName;
+                const originalNote = originalOrder ? (originalOrder.specialMessage || '') : '';
+                const originalOrderCreatedAt = originalOrder ? originalOrder.createdAt : null;
+
+                // Create refill data
+                const refillData = {
+                    refillId: refillId,
+                    userId: userId,
+                    // include both orderId (used by bot/webhook) and originalOrderId for clarity
+                    orderId: orderId,
+                    originalOrderId: orderId,
+                    // canonical copy of order details at time of refill
+                    package: originalPackage,
+                    tiktokLink: tiktokLink,
+                    contactInfo: originalContact,
+                    note: originalNote,
+                    // always start as 'pending'
+                    status: 'pending',
+                    createdAt: new Date().toISOString(),
+                    originalOrderCreatedAt: originalOrderCreatedAt,
+                    // include both proofImageUrl and imageUrl so the bot and other consumers find it
+                    proofImageUrl: proofUpload.url,
+                    imageUrl: proofUpload.url,
+                    proofImageName: proofImage.name,
+                    proofImageMeta: proofUpload.raw
+                };
+
+                // Save to Firebase (this will automatically sync to all devices)
+                try {
+                    await saveRefillToFirebase(refillData);
+                } catch (err) {
+                    console.error('Failed to save refill:', err);
+                    // Re-enable button and restore text
+                    if (submitBtn) {
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = originalText || 'ສົ່ງຄຳຂໍເຕີມຍອດ';
+                        submitBtn.classList.remove('opacity-70', 'cursor-wait');
+                    }
+                    alert('ບໍ່ສາມາດສົ່ງຄຳຂໍເຕີມຍອດ ກະລຸນາລອງໃໝ່');
+                    return;
+                }
+
+                // Also mark the original order with refill status so user can see it under order details
+                try {
+                    await updateOrderInFirebase(orderId, { refillStatus: 'pending', lastRefillId: refillId, refillCreatedAt: new Date().toISOString() });
+                } catch (e) { console.error('Failed to mark order with refill status', e); }
+                
+                // Add to local arrays for immediate display
+                adminRefills.push(refillData);
+                
+                // Fallback save to localStorage
+                saveToLocalStorage();
+                
+                // Show success modal
+                showSuccessModal('ຄຳຂໍເຕີມຍອດສົ່ງສຳເລັດ!', `ໝາຍເລກຄຳຂໍ: ${refillId}\nພວກເຮົາຈະກວດຄືນພາຍໃນ 0-24 ຊົ່ວໂມງ`);
+                
+                // Close modal and reset form
+                document.getElementById('refillModal').classList.add('hidden');
+                document.getElementById('refillModal').classList.remove('flex');
+                document.getElementById('refillForm').reset();
+                document.getElementById('refillProofPreview').classList.add('hidden');
+                // Keep submit button disabled to prevent immediate re-submit; UI will hide refill option based on refillStatus
+                if (typeof submitBtn !== 'undefined' && submitBtn) {
+                    submitBtn.disabled = true;
+                    submitBtn.classList.remove('cursor-wait');
+                    submitBtn.classList.add('opacity-50');
+                }
+            });
+
+            // Close refill modal when clicking outside
+            document.getElementById('refillModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.classList.add('hidden');
+                    this.classList.remove('flex');
+                    document.getElementById('refillProofPreview').classList.add('hidden');
+                }
+            });
+
+            // Close warranty expired modal when clicking outside
+            document.getElementById('warrantyExpiredModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.classList.add('hidden');
+                    this.classList.remove('flex');
+                }
+            });
+
+            // Admin Access Button (only attach if element exists)
+            const adminAccessBtnEl = document.getElementById('adminAccessBtn');
+            if (adminAccessBtnEl) {
+                adminAccessBtnEl.addEventListener('click', function() {
+                    const modal = document.getElementById('adminLoginModal');
+                    if (modal) {
+                        modal.classList.remove('hidden');
+                        modal.classList.add('flex');
+                    }
+                });
+            }
+
+            // Admin Login (attach handler only if form exists)
+            const adminLoginForm = document.getElementById('adminLoginForm');
+            if (adminLoginForm) {
+                adminLoginForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    const pwEl = document.getElementById('adminPassword');
+                    const password = pwEl ? pwEl.value : '';
+
+                    try {
+                        const resp = await fetch(WORKER_BASE + '/admin/login', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ password })
+                        });
+                        const data = await resp.json();
+                        if (data.ok && data.token) {
+                            localStorage.setItem('admin_token', data.token);
+                            const modal = document.getElementById('adminLoginModal');
+                            if (modal) { modal.classList.add('hidden'); modal.classList.remove('flex'); }
+                            const panel = document.getElementById('adminPanel');
+                            if (panel) panel.classList.remove('hidden');
+                            if (pwEl) pwEl.value = '';
+                            if (typeof loadAdminData === 'function') loadAdminData();
+                        } else {
+                            showSuccessModal('ເຂົ້າສູ່ລະບົບບໍ່ສຳເລັດ', data.error || 'ລະຫັດຜ່ານບໍ່ຖືກຕ້ອງ');
+                        }
+                    } catch (err) {
+                        showSuccessModal('ເກີດຂໍ້ຜິດພາດ', err.message || String(err));
+                    }
+                });
+            }
+
+            // Close Admin Login Modal (if exists)
+            const closeAdminLoginBtn = document.getElementById('closeAdminLoginModal');
+            if (closeAdminLoginBtn) {
+                closeAdminLoginBtn.addEventListener('click', function() {
+                    const modal = document.getElementById('adminLoginModal');
+                    if (modal) { modal.classList.add('hidden'); modal.classList.remove('flex'); }
+                });
+            }
+
+            // Logout Admin (if exists)
+            const logoutAdminBtn = document.getElementById('logoutAdmin');
+            if (logoutAdminBtn) {
+                logoutAdminBtn.addEventListener('click', function() {
+                    const panel = document.getElementById('adminPanel');
+                    if (panel) panel.classList.add('hidden');
+                });
+            }
+
+            // Admin Tabs (attach only if buttons exist)
+            const adminTabBtns = document.querySelectorAll('.admin-tab-btn');
+            if (adminTabBtns && adminTabBtns.length) {
+                adminTabBtns.forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const tabName = this.getAttribute('data-tab');
+                        // Update tab buttons
+                        document.querySelectorAll('.admin-tab-btn').forEach(b => {
+                            b.classList.remove('border-blue-500', 'text-blue-600');
+                            b.classList.add('border-transparent', 'text-gray-500');
+                        });
+                        this.classList.add('border-blue-500', 'text-blue-600');
+                        this.classList.remove('border-transparent', 'text-gray-500');
+                        // Update tab content
+                        document.querySelectorAll('.admin-tab-content').forEach(content => {
+                            content.classList.add('hidden');
+                        });
+                        const tabEl = document.getElementById(tabName + 'Tab');
+                        if (tabEl) tabEl.classList.remove('hidden');
+                        if (tabName === 'orders' && typeof renderAdminOrders === 'function') renderAdminOrders();
+                        else if (tabName === 'refills' && typeof renderAdminRefills === 'function') renderAdminRefills();
+                    });
+                });
+            }
+
+            // Optional admin controls: attach listeners only if elements exist
+            const orderStatusFilterEl = document.getElementById('orderStatusFilter');
+            if (orderStatusFilterEl) orderStatusFilterEl.addEventListener('change', () => renderAdminOrders());
+
+            const refillStatusFilterEl = document.getElementById('refillStatusFilter');
+            if (refillStatusFilterEl) refillStatusFilterEl.addEventListener('change', () => renderAdminRefills());
+
+            const closeOrderDetailsBtn = document.getElementById('closeOrderDetailsModal');
+            if (closeOrderDetailsBtn) closeOrderDetailsBtn.addEventListener('click', () => {
+                const modal = document.getElementById('orderDetailsModal');
+                if (modal) { modal.classList.add('hidden'); modal.classList.remove('flex'); }
+            });
+
+            const closeRefillDetailsBtn = document.getElementById('closeRefillDetailsModal');
+            if (closeRefillDetailsBtn) closeRefillDetailsBtn.addEventListener('click', () => {
+                const modal = document.getElementById('refillDetailsModal');
+                if (modal) { modal.classList.add('hidden'); modal.classList.remove('flex'); }
+            });
+
+            const approveOrderBtn = document.getElementById('approveOrderBtn');
+            if (approveOrderBtn) approveOrderBtn.addEventListener('click', () => approveOrder(currentOrderId));
+
+            const rejectOrderBtnEl = document.getElementById('rejectOrderBtn');
+            if (rejectOrderBtnEl) rejectOrderBtnEl.addEventListener('click', () => {
+                const modal = document.getElementById('rejectOrderModal');
+                if (modal) { modal.classList.remove('hidden'); modal.classList.add('flex'); }
+            });
+
+            const closeRejectOrderBtn = document.getElementById('closeRejectOrderModal');
+            if (closeRejectOrderBtn) closeRejectOrderBtn.addEventListener('click', () => {
+                const modal = document.getElementById('rejectOrderModal');
+                if (modal) { modal.classList.add('hidden'); modal.classList.remove('flex'); }
+            });
+
+            const rejectOrderFormEl = document.getElementById('rejectOrderForm');
+            if (rejectOrderFormEl) rejectOrderFormEl.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const reasonEl = document.getElementById('rejectReason');
+                const reason = reasonEl ? reasonEl.value : '';
+                rejectOrder(currentOrderId, reason);
+                const modal = document.getElementById('rejectOrderModal');
+                if (modal) { modal.classList.add('hidden'); modal.classList.remove('flex'); }
+                if (reasonEl) reasonEl.value = '';
+            });
+
+            const completeRefillBtnEl = document.getElementById('completeRefillBtn');
+            if (completeRefillBtnEl) completeRefillBtnEl.addEventListener('click', () => completeRefill(currentRefillId));
+
+            const rejectRefillBtnEl = document.getElementById('rejectRefillBtn');
+            if (rejectRefillBtnEl) rejectRefillBtnEl.addEventListener('click', () => {
+                const modal = document.getElementById('rejectRefillModal');
+                if (modal) { modal.classList.remove('hidden'); modal.classList.add('flex'); }
+            });
+
+            const closeRejectRefillBtn = document.getElementById('closeRejectRefillModal');
+            if (closeRejectRefillBtn) closeRejectRefillBtn.addEventListener('click', () => {
+                const modal = document.getElementById('rejectRefillModal');
+                if (modal) { modal.classList.add('hidden'); modal.classList.remove('flex'); }
+            });
+
+            const rejectRefillFormEl = document.getElementById('rejectRefillForm');
+            if (rejectRefillFormEl) rejectRefillFormEl.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const reasonEl = document.getElementById('rejectRefillReason');
+                const reason = reasonEl ? reasonEl.value : '';
+                rejectRefill(currentRefillId, reason);
+                const modal = document.getElementById('rejectRefillModal');
+                if (modal) { modal.classList.add('hidden'); modal.classList.remove('flex'); }
+                if (reasonEl) reasonEl.value = '';
+            });
+
+            const closeSuccessModalBtn = document.getElementById('closeSuccessModal');
+            if (closeSuccessModalBtn) closeSuccessModalBtn.addEventListener('click', () => {
+                const modal = document.getElementById('successModal');
+                if (modal) { modal.classList.add('hidden'); modal.classList.remove('flex'); }
+            });
+        });
+
+        // Create order card (for user view - only their orders)
+        function createOrderCard(orderData) {
+            const orderCards = document.getElementById('orderCards');
+            
+            let statusText = '';
+            let statusClass = '';
+            let statusIcon = '';
+            
+            switch(orderData.status) {
+                case 'pending':
+                    statusText = 'ລໍຖ້າດຳເນີນການ - ກະລຸນາລໍຖ້າແອັດມິນຍືນຍິນອໍເດີ້';
+                    statusClass = 'bg-yellow-100 text-yellow-800';
+                    statusIcon = '⏳';
+                    break;
+                case 'completed':
+                    statusText = 'ສຳເລັດ - ຫລັງຈາກສະຖານະສຳເລັດລໍຖ້າຍອດຂື້້ນພາຍໃນ 0-24ຊົ່ວໂມງ';
+                    statusClass = 'bg-green-100 text-green-800';
+                    statusIcon = '✅';
+                    break;
+                case 'rejected':
+                    statusText = 'ປະຕິເສດ - ສາມາດຕິດຕໍ່ແອັດມິນເພື່ອຂໍເຫດຜົນ';
+                    statusClass = 'bg-red-100 text-red-800';
+                    statusIcon = '❌';
+                    break;
+            }
+            
+            const orderCard = document.createElement('div');
+            // mark as user-order-card so the empty state element isn't accidentally removed
+            orderCard.className = 'bg-white rounded-2xl shadow-lg p-6 card-hover border border-red-100 user-order-card';
+            orderCard.innerHTML = `
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-800">ຄຳສັ່ງຊື້ #${orderData.orderId.split('-')[1]}</h3>
+                        <p class="text-sm text-gray-500">${new Date(orderData.createdAt).toLocaleDateString('lo-LA')}</p>
+                    </div>
+                    <div class="px-3 py-1 rounded-full text-xs font-semibold ${statusClass}">
+                        ${statusIcon} ${statusText}
+                    </div>
+                </div>
+                
+                <div class="space-y-3 mb-4">
+                    <div class="flex justify-between">
+                        <span class="text-gray-600">ສິນຄ້າ:</span>
+                        <span class="font-semibold text-gray-800">${orderData.package}</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-gray-600">ລາຄາ:</span>
+                        <span class="font-bold text-red-600">${formatPrice(orderData.price)} ກີບ</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-gray-600">ຕິດຕໍ່:</span>
+                        <span class="font-medium text-gray-800">${orderData.contactInfo}</span>
+                    </div>
+                    <div class="border-t border-gray-100 pt-3 mt-3">
+                        <div class="text-gray-600 text-sm mb-1">ລິ້ງ TikTok:</div>
+                        <div class="bg-gray-50 p-2 rounded-lg">
+                            <a href="${orderData.tiktokLink}" target="_blank" 
+                               class="text-red-600 hover:text-red-700 text-sm break-all transition-colors">
+                                ${orderData.tiktokLink}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="border-t border-gray-200 pt-4">
+                    <div class="flex justify-between items-center mb-3">
+                        <div class="text-xs text-gray-500">
+                            ປະກັນຮອດ: ${new Date(orderData.warrantyUntil).toLocaleDateString('lo-LA')}
+                        </div>
+                    </div>
+                    ${(() => {
+                        // Determine if a refill is active: has refillStatus and not expired
+                        try {
+                            if (orderData.refillStatus && orderData.refillStatusExpiresAt) {
+                                const exp = new Date(orderData.refillStatusExpiresAt).getTime();
+                                if (Date.now() < exp) {
+                                    // active refill present; do not show refill button
+                                    return '';
+                                }
+                            }
+                        } catch (e) { /* ignore parse errors and show button if unsure */ }
+
+                        return orderData.status === 'completed' ? `
+                        <button class="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white py-2 px-4 rounded-lg font-medium text-sm transition-all refill-btn" 
+                                data-order-id="${orderData.orderId}" 
+                                data-warranty-until="${orderData.warrantyUntil}"
+                                data-package="${orderData.package}"
+                                data-tiktok-link="${orderData.tiktokLink}">
+                            🔄 ຂໍເຕີມຍອດ / ແຈ້ງຍອດລົດ
+                        </button>
+                        ` : '';
+                    })()}
+                </div>
+                ${(() => {
+                    try {
+                        if (!orderData.refillStatus) return '';
+                        if (orderData.refillStatusExpiresAt) {
+                            const exp = new Date(orderData.refillStatusExpiresAt).getTime();
+                            if (Date.now() >= exp) return '';
+                        }
+                        const cls = orderData.refillStatus === 'pending' ? 'bg-yellow-100 text-yellow-800' : orderData.refillStatus === 'completed' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800';
+                        const label = orderData.refillStatus === 'pending' ? 'ລໍຖ້າດຳເນີນການ' : orderData.refillStatus === 'completed' ? 'ສຳເລັດ' : 'ປະຕິເສດ';
+                        return `
+                    <div class="mt-3 text-sm">
+                        <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold ${cls}">ເຕີມຍອດ: ${label}</span>
+                    </div>
+                        `;
+                    } catch (e) { return ''; }
+                })()}
+                
+                ${orderData.specialMessage ? `
+                    <div class="mt-4 p-3 bg-gray-50 rounded-lg">
+                        <div class="text-xs text-gray-500 mb-1">ຂໍ້ຄວາມພິເສດ:</div>
+                        <div class="text-sm text-gray-700">${orderData.specialMessage}</div>
+                    </div>
+                ` : ''}
+            `;
+            
+            orderCards.appendChild(orderCard);
+        }
+
+        // Admin Functions
+        function showSuccessModal(title, message) {
+            document.getElementById('successTitle').textContent = title;
+            document.getElementById('successMessage').textContent = message;
+            document.getElementById('successModal').classList.remove('hidden');
+            document.getElementById('successModal').classList.add('flex');
+        }
+
+        function updateAdminStats() {
+            const totalOrders = adminOrders.length;
+            const pendingOrders = adminOrders.filter(order => order.status === 'pending').length;
+            const completedOrders = adminOrders.filter(order => order.status === 'completed').length;
+            const totalRefills = adminRefills.length;
+
+            document.getElementById('totalOrders').textContent = totalOrders;
+            document.getElementById('pendingOrders').textContent = pendingOrders;
+            document.getElementById('completedOrders').textContent = completedOrders;
+            document.getElementById('totalRefills').textContent = totalRefills;
+        }
+
+        function loadAdminData() {
+            // Load all orders and refills from Firebase for admin
+            loadAdminOrdersFromFirebase();
+            loadAdminRefillsFromFirebase();
+            
+            // Also load from localStorage as fallback and immediate display
+            const savedAdminOrders = localStorage.getItem('adminOrders');
+            const savedAdminRefills = localStorage.getItem('adminRefills');
+            
+            if (savedAdminOrders) {
+                const localOrders = JSON.parse(savedAdminOrders);
+                // Merge with existing orders (avoid duplicates)
+                localOrders.forEach(order => {
+                    if (!adminOrders.find(o => o.orderId === order.orderId)) {
+                        adminOrders.push(order);
+                    }
+                });
+            }
+            
+            if (savedAdminRefills) {
+                const localRefills = JSON.parse(savedAdminRefills);
+                // Merge with existing refills (avoid duplicates)
+                localRefills.forEach(refill => {
+                    if (!adminRefills.find(r => r.refillId === refill.refillId)) {
+                        adminRefills.push(refill);
+                    }
+                });
+            }
+            
+            // Update display immediately
+            updateAdminStats();
+            renderAdminOrders();
+            renderAdminRefills();
+        }
+
+        function renderAdminOrders() {
+            const orderStatusFilterEl = document.getElementById('orderStatusFilter');
+            if (!orderStatusFilterEl) return; // admin UI removed
+            const filter = orderStatusFilterEl.value;
+            const filteredOrders = filter === 'all' ? adminOrders : adminOrders.filter(order => order.status === filter);
+            
+            const ordersList = document.getElementById('adminOrdersList');
+            if (!ordersList) return;
+            ordersList.innerHTML = '';
+
+            if (filteredOrders.length === 0) {
+                ordersList.innerHTML = `
+                    <div class="text-center py-12">
+                        <div class="text-6xl mb-4">📋</div>
+                        <h3 class="text-xl font-semibold text-gray-600 mb-2">ບໍ່ມີຄຳສັ່ງຊື້</h3>
+                        <p class="text-gray-500">ຍັງບໍ່ມີຄຳສັ່ງຊື້ໃນລະບົບ</p>
+                    </div>
+                `;
+                return;
+            }
+
+            filteredOrders.forEach(order => {
+                const statusClass = getStatusClass(order.status);
+                const statusText = getStatusText(order.status);
+                
+                const orderCard = document.createElement('div');
+                orderCard.className = 'bg-white border border-gray-200 rounded-xl p-6 hover:shadow-md transition-shadow';
+                
+                orderCard.innerHTML = `
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h3 class="text-lg font-bold text-gray-800">#${order.orderId.split('-')[1]}</h3>
+                            <p class="text-sm text-gray-500">${new Date(order.createdAt).toLocaleDateString('lo-LA')}</p>
+                        </div>
+                        <span class="px-3 py-1 rounded-full text-xs font-semibold ${statusClass}">
+                            ${statusText}
+                        </span>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <span class="text-gray-600 text-sm">ແພັກເກັດ:</span>
+                            <p class="font-semibold">${order.package}</p>
+                        </div>
+                        <div>
+                            <span class="text-gray-600 text-sm">ລາຄາ:</span>
+                            <p class="font-bold text-red-600">${formatPrice(order.price)} ກີບ</p>
+                        </div>
+                        <div>
+                            <span class="text-gray-600 text-sm">ຕິດຕໍ່:</span>
+                            <p class="font-medium">${order.contactInfo}</p>
+                        </div>
+                        <div>
+                            <span class="text-gray-600 text-sm">TikTok:</span>
+                            <p class="font-medium text-blue-600 truncate">${order.tiktokLink}</p>
+                        </div>
+                    </div>
+                    
+                    ${order.status === 'pending' ? `
+                        <div class="flex gap-2 mt-4">
+                            <button onclick="approveOrder('${order.orderId}')" 
+                                    class="flex-1 bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded-lg font-medium text-sm transition-all">
+                                ✅ ຢືນຢັນ
+                            </button>
+                            <button onclick="showRejectModal('${order.orderId}')" 
+                                    class="flex-1 bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-lg font-medium text-sm transition-all">
+                                ❌ ປະຕິເສດ
+                            </button>
+                        </div>
+                    ` : `
+                        <div class="text-right mt-4">
+                            <button onclick="showOrderDetails('${order.orderId}')" class="text-blue-600 hover:text-blue-800 text-sm font-medium">
+                                ເບິ່ງລາຍລະອຽດ →
+                            </button>
+                        </div>
+                    `}
+                `;
+                
+                ordersList.appendChild(orderCard);
+            });
+        }
+
+        function renderAdminRefills() {
+            const refillStatusFilterEl = document.getElementById('refillStatusFilter');
+            if (!refillStatusFilterEl) return; // admin UI removed
+            const filter = refillStatusFilterEl.value;
+            const filteredRefills = filter === 'all' ? adminRefills : adminRefills.filter(refill => refill.status === filter);
+            
+            const refillsList = document.getElementById('adminRefillsList');
+            if (!refillsList) return;
+            refillsList.innerHTML = '';
+
+            if (filteredRefills.length === 0) {
+                refillsList.innerHTML = `
+                    <div class="text-center py-12">
+                        <div class="text-6xl mb-4">🔄</div>
+                        <h3 class="text-xl font-semibold text-gray-600 mb-2">ບໍ່ມີຄຳຂໍເຕີມຍອດ</h3>
+                        <p class="text-gray-500">ຍັງບໍ່ມີຄຳຂໍເຕີມຍອດໃນລະບົບ</p>
+                    </div>
+                `;
+                return;
+            }
+
+            filteredRefills.forEach(refill => {
+                const statusClass = getStatusClass(refill.status);
+                const statusText = getStatusText(refill.status);
+                
+                const refillCard = document.createElement('div');
+                refillCard.className = 'bg-white border border-gray-200 rounded-xl p-6 hover:shadow-md transition-shadow';
+                
+                refillCard.innerHTML = `
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h3 class="text-lg font-bold text-gray-800">#${refill.refillId.split('-')[1]}</h3>
+                            <p class="text-sm text-gray-500">${new Date(refill.createdAt).toLocaleDateString('lo-LA')}</p>
+                        </div>
+                        <span class="px-3 py-1 rounded-full text-xs font-semibold ${statusClass}">
+                            ${statusText}
+                        </span>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <span class="text-gray-600 text-sm">ຄຳສັ່ງຊື້ເດີມ:</span>
+                            <p class="font-semibold">#${refill.originalOrderId.split('-')[1]}</p>
+                        </div>
+                        <div>
+                            <span class="text-gray-600 text-sm">ແພັກເກັດ:</span>
+                            <p class="font-semibold">${refill.package}</p>
+                        </div>
+                        <div class="col-span-2">
+                            <span class="text-gray-600 text-sm">TikTok:</span>
+                            <p class="font-medium text-blue-600 truncate">${refill.tiktokLink}</p>
+                        </div>
+                    </div>
+                    
+                    ${refill.status === 'pending' ? `
+                        <div class="flex gap-2 mt-4">
+                            <button onclick="completeRefill('${refill.refillId}')" 
+                                    class="flex-1 bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded-lg font-medium text-sm transition-all">
+                                ✅ ເຕີມສຳເລັດ
+                            </button>
+                            <button onclick="showRejectRefillModal('${refill.refillId}')" 
+                                    class="flex-1 bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-lg font-medium text-sm transition-all">
+                                ❌ ປະຕິເສດ
+                            </button>
+                        </div>
+                    ` : `
+                        <div class="text-right mt-4">
+                            <button onclick="showRefillDetails('${refill.refillId}')" class="text-blue-600 hover:text-blue-800 text-sm font-medium">
+                                ເບິ່ງລາຍລະອຽດ →
+                            </button>
+                        </div>
+                    `}
+                `;
+                
+                refillsList.appendChild(refillCard);
+            });
+        }
+
+            // Show reject reason inline for rejected refills in admin list (if any)
+            const rejectedNotes = refillsList.querySelectorAll('.rejected-reason-inline');
+            if (rejectedNotes && rejectedNotes.length) {
+              // nothing special to do; reasons are embedded in card markup when present
+            }
+
+        function getStatusClass(status) {
+            switch(status) {
+                case 'pending': return 'bg-yellow-100 text-yellow-800';
+                case 'completed': return 'bg-green-100 text-green-800';
+                case 'rejected': return 'bg-red-100 text-red-800';
+                default: return 'bg-gray-100 text-gray-800';
+            }
+        }
+
+        function getStatusText(status) {
+            switch(status) {
+                case 'pending': return '⏳ ລໍຖ້າດຳເນີນການ';
+                case 'completed': return '✅ ສຳເລັດ';
+                case 'rejected': return '❌ ປະຕິເສດ';
+                default: return status;
+            }
+        }
+
+        function showOrderDetails(orderId) {
+            const order = adminOrders.find(o => o.orderId === orderId);
+            if (!order) return;
+            
+            currentOrderId = orderId;
+            
+            const content = document.getElementById('orderDetailsContent');
+            content.innerHTML = `
+                <div class="space-y-6">
+                    <div class="bg-gray-50 p-4 rounded-xl">
+                        <h4 class="font-semibold text-gray-800 mb-3">ຂໍ້ມູນຄຳສັ່ງຊື້</h4>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <span class="text-gray-600 text-sm">ໝາຍເລກຄຳສັ່ງຊື້:</span>
+                                <p class="font-semibold">${order.orderId}</p>
+                            </div>
+                            <div>
+                                <span class="text-gray-600 text-sm">ວັນທີ່ສັ່ງຊື້:</span>
+                                <p class="font-semibold">${new Date(order.createdAt).toLocaleDateString('lo-LA')}</p>
+                            </div>
+                            <div>
+                                <span class="text-gray-600 text-sm">ແພັກເກັດ:</span>
+                                <p class="font-semibold">${order.package}</p>
+                            </div>
+                            <div>
+                                <span class="text-gray-600 text-sm">ລາຄາ:</span>
+                                <p class="font-bold text-red-600">${formatPrice(order.price)} ກີບ</p>
+                            </div>
+                            <div>
+                                <span class="text-gray-600 text-sm">ຊ່ອງທາງຕິດຕໍ່:</span>
+                                <p class="font-semibold">${order.contactInfo}</p>
+                            </div>
+                            <div>
+                                <span class="text-gray-600 text-sm">ສະຖານະ:</span>
+                                <span class="px-2 py-1 rounded-full text-xs font-semibold ${getStatusClass(order.status)}">
+                                    ${getStatusText(order.status)}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-blue-50 p-4 rounded-xl">
+                        <h4 class="font-semibold text-gray-800 mb-3">ລິ້ງ TikTok</h4>
+                        <div class="bg-white p-3 rounded-lg border">
+                            <a href="${order.tiktokLink}" target="_blank" class="text-blue-600 hover:text-blue-800 break-all">
+                                ${order.tiktokLink}
+                            </a>
+                        </div>
+                    </div>
+                    
+                    ${order.specialMessage ? `
+                        <div class="bg-purple-50 p-4 rounded-xl">
+                            <h4 class="font-semibold text-gray-800 mb-3">ຂໍ້ຄວາມພິເສດ</h4>
+                            <p class="text-gray-700">${order.specialMessage}</p>
+                        </div>
+                    ` : ''}
+                    
+                    <div class="bg-green-50 p-4 rounded-xl">
+                        <h4 class="font-semibold text-gray-800 mb-3">ຫຼັກຖານການໂອນເງິນ</h4>
+                        <div class="bg-white p-4 rounded-lg border text-center">
+                            ${order.paymentSlip ? `
+                                <img src="${order.paymentSlip}" alt="Payment Slip" class="max-w-full max-h-64 mx-auto rounded-lg shadow-sm mb-3">
+                                <p class="text-sm text-gray-600">ໄຟລ໌: ${order.paymentSlipName || 'payment-slip.jpg'}</p>
+                            ` : `
+                                <div class="w-32 h-32 bg-gray-200 mx-auto rounded-lg flex items-center justify-center mb-3">
+                                    <span class="text-gray-500 text-sm">ບໍ່ມີຮູບສະລິບ</span>
+                                </div>
+                            `}
+                        </div>
+                    </div>
+                    ${order.status === 'rejected' && order.rejectReason ? `
+                        <div class="bg-red-50 p-4 rounded-xl">
+                            <h4 class="font-semibold text-gray-800 mb-3">ເຫດຜົນທີ່ຖືກປະຕິເສດ</h4>
+                            <div class="bg-white p-4 rounded-lg border text-sm text-gray-700">${order.rejectReason}</div>
+                        </div>
+                    ` : ''}
+
+                    ${order.refillStatus ? (() => {
+                        const map = { pending: 'ລໍຖ້າດຳເນີນການ', completed: 'ສຳເລັດ', rejected: 'ປະຕິເສດ - ສາມາດຕິດຕໍ່ແອັດມິນເພື່ອຂໍເຫດຜົນ' };
+                        const label = map[order.refillStatus] || order.refillStatus;
+                        const reason = order.refillStatus === 'rejected' ? (order.refillRejectReason || order.rejectReason || '') : '';
+                        return `
+                        <div class="bg-yellow-50 p-4 rounded-xl">
+                            <h4 class="font-semibold text-gray-800 mb-3">ສະຖານະການເຕິມຍອດ</h4>
+                            <div class="bg-white p-4 rounded-lg border text-sm text-gray-700">${label}${order.lastRefillId ? ` — <a href="#" onclick="showRefillDetails('${order.lastRefillId}')" class="text-blue-600">ຂໍເຕີມ ${order.lastRefillId}</a>` : ''}${reason ? `<div class="mt-2 text-sm text-red-700">ເຫດຜົນ: ${reason}</div>` : ''}</div>
+                        </div>
+                        `;
+                    })() : ''}
+                </div>
+            `;
+            
+            // Show/hide action buttons based on status
+            const actionsSection = document.getElementById('orderActionsSection');
+            if (order.status === 'pending') {
+                actionsSection.style.display = 'block';
+            } else {
+                actionsSection.style.display = 'none';
+            }
+            
+            document.getElementById('orderDetailsModal').classList.remove('hidden');
+            document.getElementById('orderDetailsModal').classList.add('flex');
+        }
+
+        function showRefillDetails(refillId) {
+            const refill = adminRefills.find(r => r.refillId === refillId);
+            if (!refill) return;
+            
+            currentRefillId = refillId;
+            
+            const content = document.getElementById('refillDetailsContent');
+            content.innerHTML = `
+                <div class="space-y-6">
+                    <div class="bg-gray-50 p-4 rounded-xl">
+                        <h4 class="font-semibold text-gray-800 mb-3">ຂໍ້ມູນຄຳຂໍເຕີມຍອດ</h4>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <span class="text-gray-600 text-sm">ໝາຍເລກຄຳຂໍ:</span>
+                                <p class="font-semibold">${refill.refillId}</p>
+                            </div>
+                            <div>
+                                <span class="text-gray-600 text-sm">ວັນທີ່ຂໍເຕີມ:</span>
+                                <p class="font-semibold">${new Date(refill.createdAt).toLocaleDateString('lo-LA')}</p>
+                            </div>
+                            <div>
+                                <span class="text-gray-600 text-sm">ຄຳສັ່ງຊື້ເດີມ:</span>
+                                <p class="font-semibold">${refill.originalOrderId}</p>
+                            </div>
+                            <div>
+                                <span class="text-gray-600 text-sm">ແພັກເກັດ:</span>
+                                <p class="font-semibold">${refill.package}</p>
+                            </div>
+                            <div class="col-span-2">
+                                <span class="text-gray-600 text-sm">ສະຖານະ:</span>
+                                <span class="px-2 py-1 rounded-full text-xs font-semibold ${getStatusClass(refill.status)}">
+                                    ${getStatusText(refill.status)}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-blue-50 p-4 rounded-xl">
+                        <h4 class="font-semibold text-gray-800 mb-3">ລິ້ງ TikTok</h4>
+                        <div class="bg-white p-3 rounded-lg border">
+                            <a href="${refill.tiktokLink}" target="_blank" class="text-blue-600 hover:text-blue-800 break-all">
+                                ${refill.tiktokLink}
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-yellow-50 p-4 rounded-xl">
+                        <h4 class="font-semibold text-gray-800 mb-3">ຫຼັກຖານຍອດປັດຈຸບັນ</h4>
+                        <div class="bg-white p-4 rounded-lg border text-center">
+                            ${refill.proofImage ? `
+                                <img src="${refill.proofImage}" alt="Proof Image" class="max-w-full max-h-64 mx-auto rounded-lg shadow-sm mb-3">
+                                <p class="text-sm text-gray-600">ໄຟລ໌: ${refill.proofImageName || 'proof-image.jpg'}</p>
+                            ` : `
+                                <div class="w-32 h-32 bg-gray-200 mx-auto rounded-lg flex items-center justify-center mb-3">
+                                    <span class="text-gray-500 text-sm">ບໍ່ມີຮູບຫຼັກຖານ</span>
+                                </div>
+                            `}
+                        </div>
+                    </div>
+                    ${refill.rejectReason ? `
+                        <div class="bg-red-50 p-4 rounded-xl">
+                            <h4 class="font-semibold text-gray-800 mb-3">ເຫດຜົນທີ່ຖືກປະຕິເສດ</h4>
+                            <div class="bg-white p-4 rounded-lg border text-sm text-gray-700">${refill.rejectReason}</div>
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+            
+            // Show/hide action buttons based on status
+            const actionsSection = document.getElementById('refillActionsSection');
+            if (refill.status === 'pending') {
+                actionsSection.style.display = 'block';
+            } else {
+                actionsSection.style.display = 'none';
+            }
+            
+            document.getElementById('refillDetailsModal').classList.remove('hidden');
+            document.getElementById('refillDetailsModal').classList.add('flex');
+        }
+
+        // Global functions for inline onclick handlers
+        window.showRejectModal = function(orderId) {
+            currentOrderId = orderId;
+            document.getElementById('rejectOrderModal').classList.remove('hidden');
+            document.getElementById('rejectOrderModal').classList.add('flex');
+        };
+
+        window.showRejectRefillModal = function(refillId) {
+            currentRefillId = refillId;
+            document.getElementById('rejectRefillModal').classList.remove('hidden');
+            document.getElementById('rejectRefillModal').classList.add('flex');
+        };
+
+        async function approveOrder(orderId) {
+            // require admin token
+            const token = localStorage.getItem('admin_token');
+            if (!token) {
+                // open login modal
+                document.getElementById('adminLoginModal').classList.remove('hidden');
+                document.getElementById('adminLoginModal').classList.add('flex');
+                showSuccessModal('ต้องล็อกอิน', 'กรุณาเข้าสู่ระบบแอดมินก่อนทำรายการนี้');
+                return;
+            }
+            const order = adminOrders.find(o => o.orderId === orderId);
+            if (!order) return;
+            
+            // Update in Firebase (this will sync to all devices)
+            await updateOrderInFirebase(orderId, { status: 'completed' });
+            
+            // Update local data
+            order.status = 'completed';
+            
+            // Update user orders as well
+            const userOrder = userOrders.find(o => o.orderId === orderId);
+            if (userOrder) {
+                userOrder.status = 'completed';
+            }
+            
+            // Call API here
+            const apiResult = await callTikTokAPI(order);
+            
+            // Fallback save to localStorage
+            saveToLocalStorage();
+            
+            updateAdminStats();
+            renderAdminOrders();
+            
+            document.getElementById('orderDetailsModal').classList.add('hidden');
+            document.getElementById('orderDetailsModal').classList.remove('flex');
+            
+            const statusMessage = apiResult.success ? 
+                `ຄຳສັ່ງຊື້ ${orderId} ໄດ້ຮັບການຢືນຢັນແລະສົ່ງ API ແລ້ວ` :
+                `ຄຳສັ່ງຊື້ ${orderId} ໄດ້ຮັບການຢືນຢັນແລ້ວ ແຕ່ API ມີບັນຫາ`;
+                
+            showSuccessModal('ຢືນຢັນຄຳສັ່ງຊື້ສຳເລັດ!', statusMessage);
+        }
+
+        // Make functions global for inline handlers
+        window.approveOrder = approveOrder;
+        window.showOrderDetails = showOrderDetails;
+        window.showRefillDetails = showRefillDetails;
+
+        async function rejectOrder(orderId, reason) {
+            // require admin token
+            const token = localStorage.getItem('admin_token');
+            if (!token) {
+                document.getElementById('adminLoginModal').classList.remove('hidden');
+                document.getElementById('adminLoginModal').classList.add('flex');
+                showSuccessModal('ຕ້ອງລັອກອິນ', 'ກະລູນາເຂົ້າສູ່ລະບົບແອັດມິນກ່ອນເຮັດລາຍການນິ້');
+                return;
+            }
+            const order = adminOrders.find(o => o.orderId === orderId);
+            if (!order) return;
+            
+            // Update in Firebase (this will sync to all devices)
+            await updateOrderInFirebase(orderId, { 
+                status: 'rejected',
+                rejectReason: reason 
+            });
+            
+            // Update local data
+            order.status = 'rejected';
+            order.rejectReason = reason;
+            
+            // Update user orders as well
+            const userOrder = userOrders.find(o => o.orderId === orderId);
+            if (userOrder) {
+                userOrder.status = 'rejected';
+                userOrder.rejectReason = reason;
+            }
+            
+            // Fallback save to localStorage
+            saveToLocalStorage();
+            
+            updateAdminStats();
+            renderAdminOrders();
+            
+            document.getElementById('orderDetailsModal').classList.add('hidden');
+            document.getElementById('orderDetailsModal').classList.remove('flex');
+            
+            showSuccessModal('ປະຕິເສດຄຳສັ່ງຊື້ສຳເລັດ!', `ຄຳສັ່ງຊື້ ${orderId} ໄດ້ຮັບການປະຕິເສດແລ້ວ`);
+        }
+
+        async function completeRefill(refillId) {
+            // require admin token
+            const token = localStorage.getItem('admin_token');
+            if (!token) {
+                document.getElementById('adminLoginModal').classList.remove('hidden');
+                document.getElementById('adminLoginModal').classList.add('flex');
+                showSuccessModal('ຕ້ອງລັອກອິນ', 'ກະລູນາເຂົ້າສູ່ລະບົບແອັດມິນກ່ອນເຮັດລາຍການນິ້');
+                return;
+            }
+            const refill = adminRefills.find(r => r.refillId === refillId);
+            if (!refill) return;
+            
+            // Update in Firebase (this will sync to all devices)
+            await updateRefillInFirebase(refillId, { status: 'completed' });
+            
+            // Update local data
+            refill.status = 'completed';
+            
+            // Fallback save to localStorage
+            saveToLocalStorage();
+            
+            updateAdminStats();
+            renderAdminRefills();
+            
+            document.getElementById('refillDetailsModal').classList.add('hidden');
+            document.getElementById('refillDetailsModal').classList.remove('flex');
+            
+            showSuccessModal('ເຕີມຍອດສຳເລັດ!', `ຄຳຂໍເຕີມຍອດ ${refillId} ໄດ້ຮັບການດຳເນີນການສຳເລັດແລ້ວ`);
+        }
+
+        // Make completeRefill global
+        window.completeRefill = completeRefill;
+
+        async function rejectRefill(refillId, reason) {
+            // require admin token
+            const token = localStorage.getItem('admin_token');
+            if (!token) {
+                document.getElementById('adminLoginModal').classList.remove('hidden');
+                document.getElementById('adminLoginModal').classList.add('flex');
+                showSuccessModal('ຕ້ອງລັອກອິນ', 'ກະລູນາເຂົ້າສູ່ລະບົບແອັດມິນກ່ອນເຮັດລາຍການນິ້');
+                return;
+            }
+            const refill = adminRefills.find(r => r.refillId === refillId);
+            if (!refill) return;
+            
+            // Update in Firebase (this will sync to all devices)
+            await updateRefillInFirebase(refillId, { 
+                status: 'rejected',
+                rejectReason: reason 
+            });
+            
+            // Update local data
+            refill.status = 'rejected';
+            refill.rejectReason = reason;
+            
+            // Fallback save to localStorage
+            saveToLocalStorage();
+            
+            updateAdminStats();
+            renderAdminRefills();
+            
+            document.getElementById('refillDetailsModal').classList.add('hidden');
+            document.getElementById('refillDetailsModal').classList.remove('flex');
+            
+            showSuccessModal('ປະຕິເສດຄຳຂໍເຕີມຍອດສຳເລັດ!', `ຄຳຂໍເຕີມຍອດ ${refillId} ໄດ້ຮັບການປະຕິເສດແລ້ວ`);
+        }
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98d42bf187ee89aa',t:'MTc2MDI0NjY3NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
